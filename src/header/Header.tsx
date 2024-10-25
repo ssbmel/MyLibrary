@@ -8,7 +8,7 @@ function Header() {
     }
   return (
     <div className='w-full h-[46px] bg-[#3A0000] flex'>
-        <button onClick={goToLogin} className='text-white ml-auto mr-3'>log in</button>
+        <button onClick={goToLogin} className='text-white ml-auto mr-4'>log in</button>
     </div>
   )
 }
