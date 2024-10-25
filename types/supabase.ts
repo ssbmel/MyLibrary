@@ -24,7 +24,7 @@ export type Database = {
         }
         Update: {
           email?: string
-          id?: string
+          id: string
           nickname?: string | null
           profile_img?: string | null
         }

@@ -1,6 +1,15 @@
-// import { create } from "zustand";
+// src/store/userStore.ts
+import { create } from 'zustand';
+import { User } from '@supabase/supabase-js';
 
-// export const useUserStore = create((set) => ({
-//     user: null,
-//     saveUser: (info) => set({ user: info }),
-// }))
+interface UserState {
+  user: User | null;
+  setUser: (user: User | null) => void;
+  clearUser: () => void;
+}
+
+export const useUserStore = create<UserState>((set) => ({
+  user: null,
+  setUser: (user) => set({ user }),
+  clearUser: () => set({ user: null }),
+}));

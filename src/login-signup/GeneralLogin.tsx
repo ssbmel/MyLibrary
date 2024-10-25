@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import supabase from "../supabase/supabaseClient";
 import Button from "../communal/Button";
+import { useUserStore } from "../store/userStore";
 
 function GeneralLogin() {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -10,11 +11,11 @@ function GeneralLogin() {
 
   const loginHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    if(emailRef.current?.value === ""){
+    if (emailRef.current?.value === "") {
       alert("아이디를 입력해주세요.");
       return;
     }
-    if(passwordRef.current?.value === ""){
+    if (passwordRef.current?.value === "") {
       alert("비밀번호를 입력해주세요.");
       return;
     }
@@ -22,9 +23,11 @@ function GeneralLogin() {
       email: emailRef.current?.value || "",
       password: passwordRef.current?.value || "",
     });
-    if (error) {
-      throw error;
-    }
+    if (error) throw error;
+
+    const { setUser } = useUserStore.getState();
+    setUser(data.user);
+
     alert("로그인 성공!");
     navigate("/");
   };

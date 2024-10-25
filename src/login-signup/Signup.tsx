@@ -103,11 +103,11 @@ export default function Signup() {
     } 
 
     const { data, error } = await supabase.auth.signUp({
-      email: email,
-      password: password,
+      email,
+      password,
       options: {
         data: {
-          nickname: nickname,
+          nickname,
         },
       },
     });
@@ -121,9 +121,9 @@ export default function Signup() {
     }
 
     const { data : user } = await supabase.from("users").insert({
-      id: data.user?.id,
-      nickname: nickname,
-      email: data.user?.email,
+      id: data.user!.id,
+      nickname,
+      email,
       profile_img: "",
     });
 
