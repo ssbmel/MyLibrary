@@ -8,8 +8,8 @@ function MyPage() {
   const signOut = async () => {
     await supabase.auth.signOut();
     const { clearUser } = useUserStore.getState();
-    navigate("/");
     clearUser();
+    navigate("/");
   };
 
   return (
