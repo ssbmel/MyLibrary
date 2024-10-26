@@ -15,10 +15,20 @@ function MyPage() {
 
   return (
     <>
-      <Header/>
-      <div className="w-full h-[calc(100vh-46px)]">
-      <button onClick={signOut}>로그아웃</button>
-
+      <Header />
+      <div className="w-full h-[calc(100vh-46px)] p-10">
+        <div className="border w-full p-4 flex items-center gap-2">
+          <div className="border w-[80px] h-[80px] rounded-[50%]"></div>
+          <p className="text-[18px]">닉네임</p>
+          <div className="grid gap-1 ml-auto text-[14px]">
+            <button>프로필 수정</button>
+            <button onClick={signOut}>로그아웃</button>
+          </div>
+        </div>
+        <hr className="bg-black my-6"/>
+        <div>
+          <h3 className="text-[20px]">내가 읽은 책</h3>
+        </div>
       </div>
     </>
   );

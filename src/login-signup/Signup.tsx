@@ -190,6 +190,7 @@ export default function Signup() {
       <div className="w-full h-[46px] flex justify-center px-10">
         <button
           onClick={goToBack}
+          type="button"
           className="w-[50%] mr-2 bg-black text-white p-[6px] rounded-sm"
         >
           뒤로가기

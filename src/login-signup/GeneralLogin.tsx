@@ -57,6 +57,7 @@ function GeneralLogin() {
       <div className="w-full h-[46px] flex my-4">
         <button
           onClick={goToHome}
+          type="button"
           className="w-[50%] mr-2 bg-black text-white p-[6px] rounded-sm"
         >
           홈으로
