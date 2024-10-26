@@ -33,10 +33,6 @@ function GeneralLogin() {
     navigate("/");
   };
 
-  const goToHome = () => {
-    navigate("/");
-  };
-
   return (
     <form
       onSubmit={loginHandler}
@@ -54,14 +50,8 @@ function GeneralLogin() {
         placeholder="비밀번호"
         className="p-1 px-3 border-b-2 rounded-sm shadow-sm mb-[20px]"
       />
-      <div className="w-full h-[46px] flex my-4">
-        <button
-          onClick={goToHome}
-          type="button"
-          className="w-[50%] mr-2 bg-black text-white p-[6px] rounded-sm"
-        >
-          홈으로
-        </button>
+      <div className="w-full h-[46px] flex my-4 gap-2">
+        <BackButton><Link to={"/"}>홈으로</Link></BackButton>
         <Button>로그인</Button>
       </div>
       <div className="text-center grid gap-3 mt-[15px]">

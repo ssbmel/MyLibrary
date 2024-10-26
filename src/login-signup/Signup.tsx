@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import supabase from "../supabase/supabaseClient";
 import Button from "../communal/Button";
+import BackButton from "../communal/BackButton";
 
 export default function Signup() {
   const [email, setEmail] = useState<string>("");
@@ -127,10 +128,6 @@ export default function Signup() {
     });
   };
 
-  const goToBack = () => {
-    navigate("/loginhome");
-  };
-
   return (
     <form onSubmit={registerUser} className="w-full h-full mx-auto mt-[120px]">
       <div className="p-10 grid gap-5">
@@ -186,15 +183,8 @@ export default function Signup() {
           개인정보의 수집 및 이용에 대한 동의 (필수)
         </span>
       </div>
-
-      <div className="w-full h-[46px] flex justify-center px-10">
-        <button
-          onClick={goToBack}
-          type="button"
-          className="w-[50%] mr-2 bg-black text-white p-[6px] rounded-sm"
-        >
-          뒤로가기
-        </button>
+      <div className="w-full h-[46px] flex gap-2 justify-center px-10">
+        <BackButton><Link to={"/loginhome"}>뒤로가기</Link></BackButton>
         <Button>가입하기</Button>
       </div>
     </form>
