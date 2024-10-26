@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import supabase from "../supabase/supabaseClient";
 import Button from "../communal/Button";
 import { useUserStore } from "../store/userStore";
+import BackButton from "../communal/BackButton";
 
 function GeneralLogin() {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -32,8 +33,15 @@ function GeneralLogin() {
     navigate("/");
   };
 
+  const goToHome = () => {
+    navigate("/");
+  };
+
   return (
-    <form onSubmit={loginHandler} className="w-[250px] mx-auto grid mt-[40px]">
+    <form
+      onSubmit={loginHandler}
+      className="w-full p-10 mx-auto grid mt-[50px]"
+    >
       <input
         type="text"
         ref={emailRef}
@@ -46,14 +54,14 @@ function GeneralLogin() {
         placeholder="비밀번호"
         className="p-1 px-3 border-b-2 rounded-sm shadow-sm mb-[20px]"
       />
-      <div className="grid gap-2 py-5">
-        <Button>로그인</Button>
-        <Link
-          to={"/"}
-          className="bg-black text-white p-[6px] rounded-sm text-center"
+      <div className="w-full h-[46px] flex my-4">
+        <button
+          onClick={goToHome}
+          className="w-[50%] mr-2 bg-black text-white p-[6px] rounded-sm"
         >
           홈으로
-        </Link>
+        </button>
+        <Button>로그인</Button>
       </div>
       <div className="text-center grid gap-3 mt-[15px]">
         <Link to={"/signup"} className="text-[14px]">

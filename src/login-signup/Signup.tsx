@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import supabase from "../supabase/supabaseClient";
+import Button from "../communal/Button";
 
 export default function Signup() {
   const [email, setEmail] = useState<string>("");
@@ -37,7 +38,7 @@ export default function Signup() {
     const { value } = e.target;
     const regex = /^[a-zA-Z0-9가-힣\s]+(?![ㄱ-ㅎㅏ-ㅣ])$/;
     setNickname(e.target.value);
-    if(!regex.test(value)) {
+    if (!regex.test(value)) {
       setNicknameMsg("한글,영문,숫자로 최대 8자이내로 지어주세요.");
       setIsNickname(false);
     } else {
@@ -100,7 +101,7 @@ export default function Signup() {
     if (!isEmail || !isNickname || !isPassword || !isConfirmPassword) {
       alert("회원가입 형식에 맞게 입력해주세요.");
       return;
-    } 
+    }
 
     const { data, error } = await supabase.auth.signUp({
       email,
@@ -114,23 +115,24 @@ export default function Signup() {
     alert("회원가입이 완료되었습니다! 로그인을 진행해주세요.");
     navigate("/loginhome");
 
-    console.log(data);
-    
     if (error) {
       throw error;
     }
 
-    const { data : user } = await supabase.from("users").insert({
+    const { data: user } = await supabase.from("users").insert({
       id: data.user!.id,
       nickname,
       email,
       profile_img: "",
     });
+  };
 
+  const goToBack = () => {
+    navigate("/loginhome");
   };
 
   return (
-    <form onSubmit={registerUser} className="w-full h-full mx-auto mt-[100px]">
+    <form onSubmit={registerUser} className="w-full h-full mx-auto mt-[120px]">
       <div className="p-10 grid gap-5">
         <h1 className="text-center mb-[24px] text-[18px]">회원가입</h1>
         <input
@@ -185,16 +187,14 @@ export default function Signup() {
         </span>
       </div>
 
-      <div className="grid px-10 gap-2">
-        <button className="bg-red-950 text-white p-[6px] rounded-sm mt-[15px]">
-          가입하기
-        </button>
-        <Link
-          to={"/loginhome"}
-          className="bg-black text-white p-[6px] rounded-sm text-center"
+      <div className="w-full h-[46px] flex justify-center px-10">
+        <button
+          onClick={goToBack}
+          className="w-[50%] mr-2 bg-black text-white p-[6px] rounded-sm"
         >
           뒤로가기
-        </Link>
+        </button>
+        <Button>가입하기</Button>
       </div>
     </form>
   );

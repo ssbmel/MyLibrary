@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../store/userStore";
 import supabase from "../supabase/supabaseClient";
+import Header from "../header/Header";
 
 function MyPage() {
   const navigate = useNavigate();
@@ -14,8 +15,11 @@ function MyPage() {
 
   return (
     <>
-      <div>MyPage</div>
+      <Header/>
+      <div className="w-full h-[calc(100vh-46px)]">
       <button onClick={signOut}>로그아웃</button>
+
+      </div>
     </>
   );
 }
