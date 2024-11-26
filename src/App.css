@@ -1,0 +1,10 @@
+/* global.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media (max-width: 500px) {
+  body {
+    overflow-x: hidden;
+  }
+}
