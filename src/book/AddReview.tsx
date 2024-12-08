@@ -80,19 +80,19 @@ function AddReview() {
   };
 
   return (
-    <form onSubmit={registerReview} className="w-full h-auto p-6 grid gap-5">
+    <form onSubmit={registerReview} className="w-full h-svh pt-[46px] px-6 flex flex-col gap-5">
       <input
         ref={titleRef}
         type="text"
         placeholder="책제목"
-        className="border-red-950 border-b h-[50px] p-2"
+        className="border-red-950 border-b h-[35px] px-2 mt-[20px] focus:outline-none"
       />
       <textarea
         ref={contentRef}
         name="content"
         id="content"
         placeholder="후기를 입력하세요"
-        className="border-y h-[300px] resize-none p-2 border-red-950"
+        className="border h-[300px] resize-none p-2 border-gray-300 rounded-md focus:outline-none" 
       ></textarea>
       <input
         type="file"

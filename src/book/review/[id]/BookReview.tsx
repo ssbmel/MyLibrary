@@ -28,9 +28,10 @@ function BookReview() {
   }, [id]);
 
   return (
-    <div className="w-full justify-center p-6">
-      <img src={readBook?.book_image ? readBook.book_image : Sample} alt="책커버이미지" className="w-[70%] object-cover mx-auto shadow-md"/>
+    <div className="w-full h-full pt-[46px] justify-center p-6">
+      <img src={readBook?.book_image ? readBook.book_image : Sample} alt="책커버이미지" className="w-[70%] object-cover mx-auto shadow-md mt-[20px]"/>
       <h1 className="w-full text-xl text-center py-3 font-bold">{readBook?.title}</h1>
+      <hr className="py-2"/>
       <p>{readBook?.content}</p>
     </div>
   )

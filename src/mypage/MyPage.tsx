@@ -9,7 +9,7 @@ import Sample from "../assets/default.png"
 
 function MyPage() {
   const { clearUser } = useUserStore.getState();
-  const { setIsLoggingOut } = useUserStore.getState();
+  const setIsLoggedIn = useUserStore((state)=>state.setIsLoggedIn);
   const user = useUserStore((state) => state.user);
   const [myReadBooks, setMyReadBooks] = useState<Review[] | null>(null);
   const navigate = useNavigate();
@@ -37,7 +37,8 @@ function MyPage() {
   const signOut = async (): Promise<void> => {
     await supabase.auth.signOut();
     clearUser();
-    setIsLoggingOut(true);
+    navigate("/");
+    setIsLoggedIn(false);
   };
 
   const goToBookReview = (id: string) => {
@@ -45,11 +46,9 @@ function MyPage() {
   };
 
   return (
-    <>
-      <div className="w-full h-[calc(100vh-46px)] p-6">
-        <div className="border w-full p-4 flex items-center gap-2">
-          <img src={Sample} alt="프로필이미지" className="border w-[80px] h-[80px] rounded-full"/>
-          {/* <div className="border w-[80px] h-[80px] rounded-[50%]"></div> */}
+      <div className="w-full h-full px-6 pt-[46px]">
+        <div className="border w-full p-4 flex items-center gap-2 mt-[20px]">
+          <img src={Sample} alt="프로필이미지" className="border w-[60px] h-[60px] rounded-full"/>
           <p className="text-[18px]">{user?.user_metadata.nickname}</p>
           <div className="grid gap-3 ml-auto text-[14px]">
             <button type="button" className="text-[20px]">
@@ -83,7 +82,6 @@ function MyPage() {
           )}
         </div>
       </div>
-    </>
   );
 }
 

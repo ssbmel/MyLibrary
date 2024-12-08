@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import supabase from "../supabase/supabaseClient";
 import BackButton from "../components/BackButton";
 import Button from "../components/Button";
+import { useUserStore } from "../store/userStore";
 
 export default function Signup() {
   const [email, setEmail] = useState<string>("");
@@ -20,6 +21,7 @@ export default function Signup() {
   const [nicknameMsg, setNicknameMsg] = useState<string>("");
   const [passwordMsg, setPasswordMsg] = useState<string>("");
   const [confirmPasswordMsg, setConfirmPasswordMsg] = useState<string>("");
+  const setUser = useUserStore((state)=>state.setUser); 
 
   const navigate = useNavigate();
 
@@ -113,6 +115,7 @@ export default function Signup() {
         },
       },
     });
+    setUser(data.user);
     alert("회원가입이 완료되었습니다! 로그인을 진행해주세요.");
     navigate("/login");
 

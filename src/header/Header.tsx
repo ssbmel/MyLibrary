@@ -16,19 +16,19 @@ function Header() {
   };
 
   const goToBack = () => {
-    navigate("/")
+    navigate(-1)
   }
 
   return (
-    <div className="w-full h-[46px] bg-[#3A0000] flex">
+    <div className="w-full h-[46px] bg-[#3A0000] flex fixed">
       <button onClick={goToBack} className="text-white text-[24px] ml-2"><FiChevronLeft/></button>
       {user ? (
         <button onClick={goToMypage} className="text-white text-[24px] ml-auto mr-4">
           <FiUser/>
         </button>
       ) : (
-        <button onClick={goToLogin} className="text-white ml-auto mr-4">
-          log in
+        <button onClick={goToLogin} className="text-white ml-auto mr-4 text-sm">
+          Login
         </button>
       )}
     </div>
