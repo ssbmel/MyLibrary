@@ -1,5 +1,5 @@
-import BookList from "../book/BookList";
 import { useUserStore } from "../store/userStore";
+import BookSearch from "./BookSearch";
 
 function Main() {
   const user = useUserStore((state) => state.user?.user_metadata);
@@ -11,7 +11,7 @@ function Main() {
         {user ? <p>{user.nickname}님, 안녕하세요</p> : ""}
         <p className="text-lg">읽은 책에 대한 느낀점을 기록하고 보관하세요</p>
       </div>
-      <BookList/>
+      <BookSearch/>
     </div>
   );
 }

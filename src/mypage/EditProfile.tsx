@@ -17,7 +17,6 @@ const EditProfile: React.FC<EditProfileProps> = ({
   const [imagePreview, setImagePreview] = useState<string>(currentImage);
   const [nickname, setNickname] = useState<string>(currentNickname);
 
-  // 이미지 파일 업로드 핸들러
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -26,7 +25,6 @@ const EditProfile: React.FC<EditProfileProps> = ({
     }
   };
 
-  // 저장 버튼 클릭 핸들러
   const handleSave = () => {
   };
 
