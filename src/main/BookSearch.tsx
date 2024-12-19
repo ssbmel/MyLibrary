@@ -1,13 +1,17 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { BooksType } from "../../types/booksTypes";
+import BookDetail from "./components/BookDetail";
 
 function BookSearch() {
-  const foundBookRef = useRef<HTMLInputElement>(null);
+  const findBookRef = useRef<HTMLInputElement>(null);
+  const [foundBooks, setFoundBooks] = useState<BooksType[]>([]);
+  const [selectedBook, setSelectedBook] = useState<BooksType | null>(null);
 
   const clientId = import.meta.env.VITE_APP_CLIENT_ID;
   const secretKey = import.meta.env.VITE_APP_CLIENT_SECRET;
 
-  const getBookDate = async () => {
-    const query = foundBookRef.current?.value || "";
+    const getBookDate = async () => {
+    const query = findBookRef.current?.value || "";
     if (!query) {
       alert("검색어를 입력해주세요.");
       return;
@@ -21,22 +25,61 @@ function BookSearch() {
       },
     })
       .then((res) => res.json())
-      .then((result) => console.log(result))
+      .then((result) => setFoundBooks(result.items))
       .catch((error) => console.error("Error:", error));
   };
-  
 
-    return (
-      <div className="w-full h-svh pt-[46px]">
-        <div className="flex justify-center gap-2 mt-[20px]">
-        <p>책 조회</p>
-        <input ref={foundBookRef} type="text" className="border border-red-900 rounded-full px-2"/>
-        <button onClick={getBookDate}>검색</button>
-        </div>
-
-        <div>책 리스트</div>
-      </div>
-    )
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      getBookDate();
+    }
   }
+
+  const handleBookDetailModal = (book: BooksType) => {
+    setSelectedBook(book); // 선택된 책 데이터 저장
+  };
+
+  const closeModal = () => {
+    setSelectedBook(null); // 모달 닫기
+  };
   
-  export default BookSearch
+  return (
+    <div className="w-full h-svh pt-[46px]">
+      <div className="flex justify-center gap-2 mt-[20px]">
+        <p>책 조회</p>
+        <input
+          ref={findBookRef}
+          type="text"
+          className="border border-red-900 rounded-full px-2"
+          onKeyDown={handleKeyDown}
+        />
+        <button type="button" onClick={getBookDate}>
+          검색
+        </button>
+      </div>
+
+      {foundBooks.length === 0 && (
+        <p className="w-full justify-center flex my-10">
+          찾고 싶은 책을 검색해보세요.
+        </p>
+      )}
+      <div className="w-full grid grid-cols-3 gap-3 place-items-center py-10">
+        {foundBooks.map((book) => (
+          <button key={book.title} className="w-[100px] h-[160px] items-center" onClick={() => handleBookDetailModal(book)}>
+            <img
+              src={book.image}
+              alt="책커버"
+              className="w-[100px] h-[130px] shadow-[0_5px_5px_0px_rgba(0,0,0,0.5)]"
+            />
+            <p className="text-[12px] py-2 truncate">{book.title}</p>
+          </button>
+        ))}
+        {selectedBook && (
+        <BookDetail book={selectedBook} closeModal={closeModal} />
+      )}
+      </div>
+    </div>
+  );
+}
+
+export default BookSearch;
