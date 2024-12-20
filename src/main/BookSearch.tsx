@@ -12,15 +12,13 @@ function BookSearch() {
 
   const getBookDate = async () => {
     const query = findBookRef.current?.value || "";
-    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     const api = import.meta.env.VITE_API_URL;
-    const apiUrl = `${api}/v1/search/book_adv.json?d_titl=${query}`
     if (!query) {
       alert("검색어를 입력해주세요.");
       return;
     }
 
-    await fetch(proxyUrl + apiUrl, {
+    await fetch(`${api}/v1/search/book_adv.json?d_titl=${query}`, {
       method: "GET",
       headers: {
         "X-Naver-Client-Id": clientId,
