@@ -7,45 +7,47 @@ function BookSearch() {
   const [foundBooks, setFoundBooks] = useState<BooksType[]>([]);
   const [selectedBook, setSelectedBook] = useState<BooksType | null>(null);
 
-  // const clientId = import.meta.env.VITE_APP_CLIENT_ID;
-  // const secretKey = import.meta.env.VITE_APP_CLIENT_SECRET;
+  const clientId = import.meta.env.VITE_APP_CLIENT_ID;
+  const secretKey = import.meta.env.VITE_APP_CLIENT_SECRET;
 
-  const getBookData = async () => {
+  const getBookDate = async () => {
     const query = findBookRef.current?.value || "";
     if (!query) {
       alert("검색어를 입력해주세요.");
       return;
     }
-  
-    try {
-      // query를 URL에 안전하게 포함시키기 위해 encodeURIComponent 사용
-      const response = await fetch(`https://my-library-d8628x23s-ssbs-projects-d79b2593.vercel.app//search/book?query=${encodeURIComponent(query)}`);
-      
-      if (!response.ok) {
-        throw new Error("API 요청 실패");
-      }
-  
-      const result = await response.json();
-      setFoundBooks(result.items);
-    } catch (error) {
-      console.error("Error:", error);
-      alert("책을 검색하는 중에 문제가 발생했습니다.");
-    }
+
+    await fetch(`/api/v1/search/book_adv.json?d_titl=${query}`, {
+      method: "GET",
+      headers: {
+        "X-Naver-Client-Id": clientId,
+        "X-Naver-Client-Secret": secretKey,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("API 요청 실패");
+        }
+        return res.json();
+      })
+      .then((result) => setFoundBooks(result.items))
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
-  
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      getBookData();
+      getBookDate();
     }
   };
 
   const handleBookDetailModal = (book: BooksType) => {
-    setSelectedBook(book);
+    setSelectedBook(book); // 선택된 책 데이터 저장
   };
 
   const closeModal = () => {
-    setSelectedBook(null);
+    setSelectedBook(null); // 모달 닫기
   };
 
   return (
@@ -60,7 +62,7 @@ function BookSearch() {
         />
         <button
           type="button"
-          onClick={getBookData}
+          onClick={getBookDate}
           className="bg-red-900 hover:bg-red-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-md transition-all"
         >
           검색
@@ -72,13 +74,9 @@ function BookSearch() {
         </p>
       )}
 
-      <div className="w-full grid grid-cols-3 gap-3 place-items-center py-10">
+<div className="w-full grid grid-cols-3 gap-3 place-items-center py-10">
         {foundBooks.map((book) => (
-          <button
-            key={book.title}
-            className="w-[100px] h-[160px] items-center"
-            onClick={() => handleBookDetailModal(book)}
-          >
+          <button key={book.title} className="w-[100px] h-[160px] items-center" onClick={() => handleBookDetailModal(book)}>
             <img
               src={book.image}
               alt="책커버"
@@ -88,8 +86,8 @@ function BookSearch() {
           </button>
         ))}
         {selectedBook && (
-          <BookDetail book={selectedBook} closeModal={closeModal} />
-        )}
+        <BookDetail book={selectedBook} closeModal={closeModal} />
+      )}
       </div>
     </div>
   );
