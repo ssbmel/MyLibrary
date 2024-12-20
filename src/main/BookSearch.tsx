@@ -12,12 +12,14 @@ function BookSearch() {
 
   const getBookDate = async () => {
     const query = findBookRef.current?.value || "";
+    const baseUrl = import.meta.env.VITE_BASE_URL;
+    
     if (!query) {
       alert("검색어를 입력해주세요.");
       return;
     }
 
-    await fetch(`/api/v1/search/book_adv.json?d_titl=${query}`, {
+    await fetch(`${baseUrl}/api/v1/search/book_adv.json?d_titl=${query}`, {
       method: "GET",
       headers: {
         "X-Naver-Client-Id": clientId,
@@ -44,11 +46,11 @@ function BookSearch() {
   };
 
   const handleBookDetailModal = (book: BooksType) => {
-    setSelectedBook(book); // 선택된 책 데이터 저장
+    setSelectedBook(book);
   };
 
   const closeModal = () => {
-    setSelectedBook(null); // 모달 닫기
+    setSelectedBook(null);
   };
 
   return (
