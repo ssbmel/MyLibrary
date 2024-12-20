@@ -7,38 +7,36 @@ function BookSearch() {
   const [foundBooks, setFoundBooks] = useState<BooksType[]>([]);
   const [selectedBook, setSelectedBook] = useState<BooksType | null>(null);
 
-  const clientId = import.meta.env.VITE_APP_CLIENT_ID;
-  const secretKey = import.meta.env.VITE_APP_CLIENT_SECRET;
+  // const clientId = import.meta.env.VITE_APP_CLIENT_ID;
+  // const secretKey = import.meta.env.VITE_APP_CLIENT_SECRET;
 
-  const getBookDate = async () => {
+  const getBookData = async () => {
     const query = findBookRef.current?.value || "";
     if (!query) {
       alert("검색어를 입력해주세요.");
       return;
     }
-    await fetch(`/naver-api/v1/search/book_adv.json?d_titl=${query}`, {
-      method: "GET",
-      headers: {
-        "X-Naver-Client-Id": clientId,
-        "X-Naver-Client-Secret": secretKey,
-      },
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("API 요청 실패");
-        }
-        return res.json();
-      })
-      .then((result) => setFoundBooks(result.items))
-      .catch((error) => {
-        console.error("Error:", error);
-        alert("책을 검색하는 중에 문제가 발생했습니다.");
-      });
+  
+    try {
+      // query를 URL에 안전하게 포함시키기 위해 encodeURIComponent 사용
+      const response = await fetch(`http://localhost:5000/search/book?query=${encodeURIComponent(query)}`);
+      
+      if (!response.ok) {
+        throw new Error("API 요청 실패");
+      }
+  
+      const result = await response.json();
+      setFoundBooks(result.items);
+    } catch (error) {
+      console.error("Error:", error);
+      alert("책을 검색하는 중에 문제가 발생했습니다.");
+    }
   };
+  
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      getBookDate();
+      getBookData();
     }
   };
 
@@ -62,7 +60,7 @@ function BookSearch() {
         />
         <button
           type="button"
-          onClick={getBookDate}
+          onClick={getBookData}
           className="bg-red-900 hover:bg-red-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-md transition-all"
         >
           검색
