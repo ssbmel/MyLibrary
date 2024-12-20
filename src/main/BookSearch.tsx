@@ -11,22 +11,31 @@ function BookSearch() {
   const secretKey = import.meta.env.VITE_APP_CLIENT_SECRET;
 
   const getBookDate = async () => {
+    const Url = import.meta.env.VITE_API_URL;
     const query = findBookRef.current?.value || "";
     if (!query) {
       alert("검색어를 입력해주세요.");
       return;
     }
 
-    await fetch(`/api/v1/search/book_adv.json?d_titl=${query}`, {
+    await fetch(`${Url}/search/book_adv.json?d_titl=${query}`, {
       method: "GET",
       headers: {
         "X-Naver-Client-Id": clientId,
         "X-Naver-Client-Secret": secretKey,
       },
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("API 요청 실패");
+        }
+        return res.json();
+      })
       .then((result) => setFoundBooks(result.items))
-      .catch((error) => console.error("Error:", error));
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("책을 검색하는 중에 문제가 발생했습니다.");
+      });
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
