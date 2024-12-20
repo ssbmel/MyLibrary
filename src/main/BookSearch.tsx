@@ -19,7 +19,7 @@ function BookSearch() {
   
     try {
       // query를 URL에 안전하게 포함시키기 위해 encodeURIComponent 사용
-      const response = await fetch(`http://localhost:5000/search/book?query=${encodeURIComponent(query)}`);
+      const response = await fetch(`https://my-library-d8628x23s-ssbs-projects-d79b2593.vercel.app//search/book?query=${encodeURIComponent(query)}`);
       
       if (!response.ok) {
         throw new Error("API 요청 실패");
