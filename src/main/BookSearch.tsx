@@ -18,7 +18,7 @@ function BookSearch() {
       return;
     }
 
-    await fetch(`${Url}/search/book_adv.json?d_titl=${query}`, {
+    await fetch(`${Url}/v1/search/book_adv.json?d_titl=${query}`, {
       method: "GET",
       headers: {
         "X-Naver-Client-Id": clientId,
