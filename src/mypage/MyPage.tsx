@@ -87,7 +87,7 @@ function MyPage() {
               <img
                 src={book.book_image ? book.book_image : Sample}
                 alt="책커버이미지"
-                className="w-[80px] shadow-md"
+                className="w-[80px] h-[120px] shadow-md"
               />
               <p className="w-[80px] truncate my-2 text-center">{book.title}</p>
             </button>

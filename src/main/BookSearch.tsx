@@ -10,7 +10,7 @@ function BookSearch() {
   const clientId = import.meta.env.VITE_APP_CLIENT_ID;
   const secretKey = import.meta.env.VITE_APP_CLIENT_SECRET;
 
-    const getBookDate = async () => {
+  const getBookDate = async () => {
     const query = findBookRef.current?.value || "";
     if (!query) {
       alert("검색어를 입력해주세요.");
@@ -33,7 +33,7 @@ function BookSearch() {
     if (e.key === "Enter") {
       getBookDate();
     }
-  }
+  };
 
   const handleBookDetailModal = (book: BooksType) => {
     setSelectedBook(book); // 선택된 책 데이터 저장
@@ -42,28 +42,32 @@ function BookSearch() {
   const closeModal = () => {
     setSelectedBook(null); // 모달 닫기
   };
-  
+
   return (
-    <div className="w-full h-svh pt-[46px]">
-      <div className="flex justify-center gap-2 mt-[20px]">
-        <p>책 조회</p>
+    <div className="w-full min-h-[650px] pt-[40px] bg-gray-100">
+      <div className="flex justify-center items-center gap-2 mt-6">
         <input
           ref={findBookRef}
           type="text"
-          className="border border-red-900 rounded-full px-2"
+          className="border border-gray-300 rounded-full w-[70%] px-4 py-2 text-sm focus:ring focus:ring-red-300 focus:outline-none shadow-sm"
+          placeholder="책 제목을 입력하세요"
           onKeyDown={handleKeyDown}
         />
-        <button type="button" onClick={getBookDate}>
+        <button
+          type="button"
+          onClick={getBookDate}
+          className="bg-red-900 hover:bg-red-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-md transition-all"
+        >
           검색
         </button>
       </div>
-
       {foundBooks.length === 0 && (
-        <p className="w-full justify-center flex my-10">
+        <p className="w-full flex justify-center my-10 text-gray-500 text-base">
           찾고 싶은 책을 검색해보세요.
         </p>
       )}
-      <div className="w-full grid grid-cols-3 gap-3 place-items-center py-10">
+
+<div className="w-full grid grid-cols-3 gap-3 place-items-center py-10">
         {foundBooks.map((book) => (
           <button key={book.title} className="w-[100px] h-[160px] items-center" onClick={() => handleBookDetailModal(book)}>
             <img

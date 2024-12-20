@@ -37,7 +37,6 @@ const EditProfile: React.FC<EditProfileProps> = ({
       <div className="bg-white p-6 rounded-lg shadow-md w-[350px]">
         <h2 className="text-lg font-semibold mb-4">프로필 수정</h2>
 
-        {/* 이미지 업로드 섹션 */}
         <div className="flex flex-col items-center mb-4">
           <img
             src={currentImage ? imagePreview : Sample}
@@ -59,7 +58,6 @@ const EditProfile: React.FC<EditProfileProps> = ({
           />
         </div>
 
-        {/* 닉네임 입력 섹션 */}
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1">닉네임</label>
           <input
@@ -71,7 +69,6 @@ const EditProfile: React.FC<EditProfileProps> = ({
           />
         </div>
 
-        {/* 버튼 섹션 */}
         <div className="flex justify-end gap-2">
           <button
             type="button"
@@ -82,7 +79,7 @@ const EditProfile: React.FC<EditProfileProps> = ({
           </button>
           <button
             onClick={handleSave}
-            className="px-4 py-2 bg-blue-500 text-white text-sm rounded hover:bg-blue-600"
+            className="px-4 py-2 bg-red-900 hover:bg-red-500 text-white text-sm rounded"
           >
             저장
           </button>
