@@ -12,13 +12,13 @@ function BookSearch() {
 
   const getBookDate = async () => {
     const query = findBookRef.current?.value || "";
-    // const api = import.meta.env.VITE_API_URL;
+    const apiUrl = `https://openapi.naver.com/v1/search/book_adv.json?d_titl=${query}`;
     if (!query) {
       alert("검색어를 입력해주세요.");
       return;
     }
-
-    await fetch(`/api/v1/search/book_adv.json?d_titl=${query}`, {
+  
+    await fetch(apiUrl, {
       method: "GET",
       headers: {
         "X-Naver-Client-Id": clientId,
@@ -36,7 +36,7 @@ function BookSearch() {
         console.error("Error:", error);
         alert("책을 검색하는 중에 문제가 발생했습니다.");
       });
-  };
+  };  
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
