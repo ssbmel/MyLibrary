@@ -11,14 +11,13 @@ function BookSearch() {
   const secretKey = import.meta.env.VITE_APP_CLIENT_SECRET;
 
   const getBookDate = async () => {
-    const Url = import.meta.env.VITE_API_URL;
     const query = findBookRef.current?.value || "";
     if (!query) {
       alert("검색어를 입력해주세요.");
       return;
     }
 
-    await fetch(`${Url}/v1/search/book_adv.json?d_titl=${query}`, {
+    await fetch(`/api/v1/search/book_adv.json?d_titl=${query}`, {
       method: "GET",
       headers: {
         "X-Naver-Client-Id": clientId,
