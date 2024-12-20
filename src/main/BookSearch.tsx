@@ -16,7 +16,7 @@ function BookSearch() {
       alert("검색어를 입력해주세요.");
       return;
     }
-    await fetch(`/api/v1/search/book_adv.json?d_titl=${query}`, {
+    await fetch(`/naver-api/v1/search/book_adv.json?d_titl=${query}`, {
       method: "GET",
       headers: {
         "X-Naver-Client-Id": clientId,
