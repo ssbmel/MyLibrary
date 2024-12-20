@@ -13,7 +13,7 @@ const EditProfile: React.FC<EditProfileProps> = ({
   currentNickname,
   handleEditModal
 }) => {
-  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [_imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>(currentImage);
   const [nickname, setNickname] = useState<string>(currentNickname);
 

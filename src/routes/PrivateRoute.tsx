@@ -5,17 +5,17 @@ import Login from "../login-signup/Login";
 
 export default function PrivateRoute() {
   const user = useUserStore((state) => state.user);
-  const isLoggingOut = useUserStore((state) => state.isLoggingOut);
+  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user && isLoggingOut) {
+    if (!user && isLoggedIn) {
       navigate("/login");
     }
-    if (isLoggingOut === true) {
+    if (isLoggedIn === true) {
       navigate("/");
     }
-  }, [user, isLoggingOut]);
+  }, [user, isLoggedIn]);
   
   return user ? <Outlet/> : <Login/>;
 }
