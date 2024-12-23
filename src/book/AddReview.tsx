@@ -41,17 +41,15 @@ function AddReview() {
       return;
     }
   
-    // 리뷰 데이터 객체 초기화
     const newReview: Review = {
       id: reviewId as string,
       created_at: new Date().toISOString(),
       title: titleRef.current?.value || "",
       content: contentRef.current?.value || "",
-      book_image: book?.thumnail || "", // book.image를 우선으로 사용
+      book_image: book?.thumnail || "",
       user_id: user!.id as string,
     };
   
-    // 이미지 파일이 있을 경우 storage에 업로드
     if (imageFile) {
       const { error: imgError } = await supabase.storage
         .from("review_image")
@@ -62,7 +60,6 @@ function AddReview() {
         return;
       }
   
-      // 이미지의 public URL 가져오기
       const { data: fileData } = supabase.storage
         .from("review_image")
         .getPublicUrl(`${user?.email}/${reviewId}/${imageFile.name}`);
@@ -70,7 +67,6 @@ function AddReview() {
       newReview.book_image = fileData.publicUrl;
     }
   
-    // 데이터베이스에 리뷰 삽입
     const { error } = await supabase
       .from("reviews")
       .insert([newReview])

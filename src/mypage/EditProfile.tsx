@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import Sample from "../assets/default.png";
+import supabase from "../supabase/supabaseClient";
+import { useUserStore } from "../store/userStore";
 
 
 interface EditProfileProps {
-  currentImage: string; // 현재 프로필 이미지 URL
-  currentNickname: string; // 현재 닉네임
+  currentImage: string; 
+  currentNickname: string;
   handleEditModal: () => void;
 }
 
@@ -13,20 +15,68 @@ const EditProfile: React.FC<EditProfileProps> = ({
   currentNickname,
   handleEditModal
 }) => {
-  const [_imageFile, setImageFile] = useState<File | null>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>(currentImage);
-  const [nickname, setNickname] = useState<string>(currentNickname);
+  const [newNickname, setNewNickname] = useState<string>(currentNickname);
+  const user = useUserStore((state)=>state.user);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setImageFile(file);
-      setImagePreview(URL.createObjectURL(file)); // 이미지 미리보기
+      setImagePreview(URL.createObjectURL(file));
     }
   };
 
-  const handleSave = () => {
+  const uploadImage = async (file: File) => {
+    const { data, error } = await supabase.storage
+      .from("profile_images")
+      .upload(`profiles/${user?.id}/${file.name}`, file);
+  
+    if (error) {
+      console.error("이미지 업로드 실패:", error.message);
+      return null;
+    }
+  
+    // 업로드된 이미지 URL 반환
+    const { data: publicURL } = supabase.storage
+      .from("profile_images")
+      .getPublicUrl(`profiles/${user?.id}/${file.name}`);
+    return publicURL.publicUrl;
   };
+
+  const handleSave = async () => {
+    let imageUrl = imagePreview;
+  
+    if (imageFile) {
+      const uploadedImageUrl = await uploadImage(imageFile);
+      if (uploadedImageUrl) {
+        imageUrl = uploadedImageUrl;
+      }
+    }
+
+    if(!user) return;
+  
+    const { data, error } = await supabase
+      .from("users")
+      .update({
+        id: user.id,
+        nickname: newNickname,
+        email: user.email,
+        profile_img: imageUrl,
+      })
+      .eq("id", user.id);
+  
+    if (error) {
+      console.error("프로필 업데이트 실패:", error.message);
+    } else {
+      alert("프로필이 성공적으로 업데이트되었습니다!");
+      console.log(data);
+      
+      handleEditModal();
+    }
+  };
+  
 
   const handleCloseModal = () => {
     handleEditModal();
@@ -39,7 +89,7 @@ const EditProfile: React.FC<EditProfileProps> = ({
 
         <div className="flex flex-col items-center mb-4">
           <img
-            src={currentImage ? imagePreview : Sample}
+            src={imagePreview || Sample}
             alt="프로필 이미지"
             className="w-[100px] h-[100px] rounded-full object-cover mb-2 border"
           />
@@ -62,8 +112,8 @@ const EditProfile: React.FC<EditProfileProps> = ({
           <label className="block text-sm font-medium mb-1">닉네임</label>
           <input
             type="text"
-            value={nickname}
-            onChange={(e) => setNickname(e.target.value)}
+            value={newNickname}
+            onChange={(e) => setNewNickname(e.target.value)}
             className="w-full border p-2 rounded"
             placeholder="닉네임 입력"
           />
