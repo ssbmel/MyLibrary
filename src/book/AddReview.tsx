@@ -4,6 +4,7 @@ import { useUserStore } from "../store/userStore";
 import { v4 as uuidv4 } from "uuid";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Review } from "../../types/type"
+import { FaCamera } from "react-icons/fa";
 
 function AddReview() {
   const titleRef = useRef<HTMLInputElement>(null);
@@ -98,22 +99,31 @@ function AddReview() {
         placeholder="후기를 입력하세요"
         className="border h-[200px] resize-none p-2 border-gray-300 rounded-md focus:outline-none" 
       ></textarea>
-      <input
-        type="file"
-        name="bookCover"
-        id="bookCover"
-        onChange={ChangeReviewImgHandler}
-        accept="image/*"
-      />
+      
+      {/* 파일 입력 버튼 (버튼처럼 보이게) */}
+      <label htmlFor="bookCover" className="flex items-center w-[100px] h-[100px] border justify-center border-gray-300 font-semibold py-2 px-4 rounded-md cursor-pointer transition">
+        <FaCamera className="w-[30px] h-[30px]"/>
+        <input
+          type="file"
+          name="bookCover"
+          id="bookCover"
+          onChange={ChangeReviewImgHandler}
+          accept="image/*"
+          className="hidden"
+        />
+      </label>
+  
+      {/* 이미지 미리보기 */}
       {bookImageUrl && (
-        <label htmlFor="file">
+        <div className="mt-4 flex justify-center">
           <img
             src={bookImageUrl}
-            alt="리뷰이미지"
-            className="w-[80%] h-auto mx-auto object-cover overflow-hidden"
+            alt="리뷰 이미지"
+            className="w-[80%] h-auto object-cover rounded-lg shadow-lg"
           />
-        </label>
+        </div>
       )}
+  
       <button
         type="submit"
         className="w-full py-3 bg-red-950 hover:bg-red-900 text-white rounded-md my-4"
@@ -122,6 +132,7 @@ function AddReview() {
       </button>
     </form>
   );
+  
 }
 
 export default AddReview;

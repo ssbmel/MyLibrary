@@ -50,7 +50,7 @@ function BookSearch() {
 
   return (
     <div className="w-full min-h-svh pt-[40px] bg-gray-100">
-      <div className="flex justify-center items-center gap-2 mt-6">
+      <div className="xl:w-[600px] mx-auto flex justify-center items-center gap-2 mt-6">
         <input
           ref={findBookRef}
           type="text"
@@ -72,7 +72,7 @@ function BookSearch() {
         </p>
       )}
 
-<div className="w-full grid grid-cols-3 gap-3 place-items-center py-10">
+<div className="w-full grid grid-cols-3 xl:grid-cols-5 gap-3 place-items-center py-10">
         {foundBooks.map((book) => (
           <button key={book.title} className="w-[100px] h-[160px] items-center" onClick={() => handleBookDetailModal(book)}>
             <img

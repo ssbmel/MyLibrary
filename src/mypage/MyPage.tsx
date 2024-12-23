@@ -52,7 +52,7 @@ function MyPage() {
   };
 
   return (
-    <div className="w-full h-full px-6 pt-[46px]">
+    <div className="w-full h-full xl:w-[700px] mx-auto px-6 pt-[46px]">
       <div className="border w-full p-4 flex items-center gap-2 mt-[20px]">
         <img
           src={Sample}
