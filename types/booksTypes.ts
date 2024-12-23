@@ -1,11 +1,14 @@
 export interface BooksType {
-    author: string;
-    description: string;
-    discount: string;
-    image: string;
-    isbn: string;
-    link: string;
-    pubdate: string;
-    publisher: string;
-    title: string;
+  authors: string[];
+  contents: string;
+  datetime: string;
+  isbn: string;
+  price: number;
+  publisher: string;
+  sale_price: number;
+  status: string;
+  thumbnail: string;
+  title: string;
+  translators: string[];
+  url: string; 
 }

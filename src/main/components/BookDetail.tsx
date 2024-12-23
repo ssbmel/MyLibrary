@@ -27,7 +27,7 @@ function BookDetail({
 
         <div className="flex justify-center mb-4">
           <img
-            src={book.image}
+            src={book.thumbnail}
             alt={book.title}
             className="w-[150px] h-[200px] object-cover shadow-md"
           />
@@ -46,16 +46,16 @@ function BookDetail({
         </h2>
 
         <p className="text-sm text-gray-700 text-center mb-2">
-          작가 : {book.author}
+          작가 : {book.authors}
         </p>
         <p className="text-sm text-gray-700 text-center mb-2">
           가격 :{" "}
-          {Number(book.discount) === 0
+          {Number(book.price) === 0
             ? "정보없음"
-            : Number(book.discount).toLocaleString() + "원"}
+            : Number(book.price).toLocaleString() + "원"}
         </p>
         <p className="text-sm text-gray-600 mb-4 line-clamp-5 overflow-y-auto">
-          {book.description}
+          {book.contents}
         </p>
 
         <button className="flex mx-auto border-b border-red-900 px-2 rounded-sm items-center" onClick={goToReview}>

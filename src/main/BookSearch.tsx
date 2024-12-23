@@ -8,7 +8,6 @@ function BookSearch() {
   const [selectedBook, setSelectedBook] = useState<BooksType | null>(null);
 
   const clientId = import.meta.env.VITE_APP_CLIENT_ID;
-  const secretKey = import.meta.env.VITE_APP_CLIENT_SECRET;
 
   const getBookDate = async () => {
     const query = findBookRef.current?.value || "";
@@ -17,11 +16,10 @@ function BookSearch() {
       return;
     }
 
-    await fetch(`/api/v1/search/book_adv.json?d_titl=${query}`, {
+    await fetch(`https://dapi.kakao.com/v3/search/book?query=${query}`, {
       method: "GET",
       headers: {
-        "X-Naver-Client-Id": clientId,
-        "X-Naver-Client-Secret": secretKey,
+        "Authorization": `KakaoAK ${clientId}`,
       },
     })
       .then((res) => {
@@ -30,7 +28,7 @@ function BookSearch() {
         }
         return res.json();
       })
-      .then((result) => setFoundBooks(result.items))
+      .then((result) => setFoundBooks(result.documents))
       .catch((error) => {
         console.error("Error:", error);
       });
@@ -43,11 +41,11 @@ function BookSearch() {
   };
 
   const handleBookDetailModal = (book: BooksType) => {
-    setSelectedBook(book); // 선택된 책 데이터 저장
+    setSelectedBook(book);
   };
 
   const closeModal = () => {
-    setSelectedBook(null); // 모달 닫기
+    setSelectedBook(null);
   };
 
   return (
@@ -78,7 +76,7 @@ function BookSearch() {
         {foundBooks.map((book) => (
           <button key={book.title} className="w-[100px] h-[160px] items-center" onClick={() => handleBookDetailModal(book)}>
             <img
-              src={book.image}
+              src={book.thumbnail}
               alt="책커버"
               className="w-[100px] h-[130px] shadow-[0_5px_5px_0px_rgba(0,0,0,0.5)]"
             />
