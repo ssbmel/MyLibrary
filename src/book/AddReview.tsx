@@ -17,8 +17,8 @@ function AddReview() {
   const { book } = location.state || {};
 
   useEffect(() => {
-    if (book?.image) {
-      setBookImageUrl(book.image);
+    if (book?.thumbnail) {
+      setBookImageUrl(book.thumbnail);
     }
   }, [book]);
 
@@ -47,7 +47,7 @@ function AddReview() {
       created_at: new Date().toISOString(),
       title: titleRef.current?.value || "",
       content: contentRef.current?.value || "",
-      book_image: book?.image || "", // book.image를 우선으로 사용
+      book_image: book?.thumnail || "", // book.image를 우선으로 사용
       user_id: user!.id as string,
     };
   

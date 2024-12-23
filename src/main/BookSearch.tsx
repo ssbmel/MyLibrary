@@ -49,7 +49,7 @@ function BookSearch() {
   };
 
   return (
-    <div className="w-full min-h-[650px] pt-[40px] bg-gray-100">
+    <div className="w-full min-h-svh pt-[40px] bg-gray-100">
       <div className="flex justify-center items-center gap-2 mt-6">
         <input
           ref={findBookRef}

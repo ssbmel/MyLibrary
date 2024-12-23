@@ -15,6 +15,7 @@ function BookDetail({
     navigate("/add", { state: { book } });
   }
 
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
       <div className="bg-white rounded-lg shadow-lg w-[90%] max-w-[400px] p-5 relative">
@@ -44,17 +45,20 @@ function BookDetail({
               </span>
             ))}
         </h2>
-
-        <p className="text-sm text-gray-700 text-center mb-2">
+        <div className="text-center flex flex-col gap-1">
+          <p className="text-sm text-gray-700">
           작가 : {book.authors}
         </p>
-        <p className="text-sm text-gray-700 text-center mb-2">
+        <p className="text-sm text-gray-700">
           가격 :{" "}
           {Number(book.price) === 0
             ? "정보없음"
             : Number(book.price).toLocaleString() + "원"}
         </p>
-        <p className="text-sm text-gray-600 mb-4 line-clamp-5 overflow-y-auto">
+        <p className="hover:underline text-sm" onClick={()=>window.open(`${book.url}`)}>책 구매 링크</p>
+        </div>
+        
+        <p className="text-sm text-gray-600 mb-4 line-clamp-5 overflow-y-auto my-4">
           {book.contents}
         </p>
 
