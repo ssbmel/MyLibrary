@@ -46,7 +46,7 @@ function Login() {
     <>
       <div className="w-full h-svh flex xl:bg-[#FFFAFA]">
         <div className="w-full xl:w-[45%] flex flex-col justify-center">
-          <div className="w-full xl:w-[500px] mx-auto xl:mt-[200px]">
+          <div className="w-full xl:w-[500px] mx-auto">
             <h1 className="text-center text-[24px]">
               나만의 도서관
             </h1>
