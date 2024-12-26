@@ -9,16 +9,14 @@ import Layout from "./Layout";
 function App() {
   const isInitialized = useUserStore((state) => state.isInitialized);
   const { pathname } = useLocation();
-  const { user } = useUserStore.getState();
-  
+  const user = useUserStore((state)=>state.user); 
   useUserInitialize();
   
   const hideAddButton =
   pathname === "/login" || pathname === "/signup" || pathname === "/add";
   
   const hideHeader = pathname === "/login" || pathname === "/signup";
-  
-  
+
   if (!isInitialized) {
     return <Loading />;
   }

@@ -5,7 +5,7 @@ import { FiUser } from "react-icons/fi";
 
 function Header() {
   const navigate = useNavigate();
-  const user = useUserStore((state) => state.user?.user_metadata);
+  const user = useUserStore((state) => state.user);
   const { pathname } = useLocation();
 
   const goToLogin = () => {
@@ -13,7 +13,9 @@ function Header() {
   };
 
   const goToMypage = () => {
-    navigate("/mypage");
+    if(user) {
+      navigate("/mypage");
+    }
   };
 
   const goToBack = () => {
@@ -23,6 +25,8 @@ function Header() {
   const goToHome = () => {
     navigate("/");
   };
+
+
 
   return (
     <div className="mx-auto min-w-[360px] w-full max-w-[500px] xl:max-w-none h-[46px] bg-[#3A0000] flex items-center justify-between fixed top-0">

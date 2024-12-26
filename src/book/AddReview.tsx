@@ -84,7 +84,7 @@ function AddReview() {
   
 
   return (
-    <form onSubmit={registerReview} className="w-full pt-[46px] px-6 flex flex-col gap-5">
+    <form onSubmit={registerReview} className="w-full xl:w-[600px] xl:mx-auto pt-[46px] px-6 flex flex-col gap-5">
       <input
         defaultValue={book && book.title}
         ref={titleRef}
@@ -100,7 +100,6 @@ function AddReview() {
         className="border h-[200px] resize-none p-2 border-gray-300 rounded-md focus:outline-none" 
       ></textarea>
       
-      {/* 파일 입력 버튼 (버튼처럼 보이게) */}
       <label htmlFor="bookCover" className="flex items-center w-[100px] h-[100px] border justify-center border-gray-300 font-semibold py-2 px-4 rounded-md cursor-pointer transition">
         <FaCamera className="w-[30px] h-[30px]"/>
         <input
@@ -113,13 +112,12 @@ function AddReview() {
         />
       </label>
   
-      {/* 이미지 미리보기 */}
       {bookImageUrl && (
         <div className="mt-4 flex justify-center">
           <img
             src={bookImageUrl}
             alt="리뷰 이미지"
-            className="w-[80%] h-auto object-cover rounded-lg shadow-lg"
+            className="w-[60%] h-auto object-cover rounded-lg shadow-lg"
           />
         </div>
       )}

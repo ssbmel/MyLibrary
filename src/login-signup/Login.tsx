@@ -8,7 +8,7 @@ import Button from "../components/Button";
 function Login() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
-  const { setIsLoggedIn } = useUserStore.getState();
+  const setIsLoggedIn = useUserStore((state)=>state.setIsLoggedIn);
   const navigate = useNavigate();
 
   const loginHandler = async (e: React.FormEvent) => {

@@ -3,7 +3,8 @@ import { useUserStore } from '../store/userStore';
 import supabase from '../supabase/supabaseClient';
 
 export const useUserInitialize = async () => {
-  const { setUser, setIsInitialized } = useUserStore.getState();
+  const setUser = useUserStore((state=>state.setUser));
+  const setIsInitialized = useUserStore((state)=>state.setIsInitialized)
   const isLoggedIn = useUserStore((state)=> state.isLoggedIn);
 
   useEffect(() => {
