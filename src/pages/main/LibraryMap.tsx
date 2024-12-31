@@ -10,7 +10,6 @@ function LibraryMap() {
   const defaultLng = 126.978;
 
   useEffect(() => {
-    // kakao.maps가 정상적으로 로드되었는지 확인
     if (typeof kakao !== "undefined" && kakao.maps) {
       const storedLocation = localStorage.getItem("userLocation");
       if (storedLocation) {
