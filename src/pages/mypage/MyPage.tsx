@@ -1,11 +1,11 @@
-import { useUserStore } from "../store/userStore";
-import supabase from "../supabase/supabaseClient";
+import { useUserStore } from "../../store/userStore";
+import supabase from "../../supabase/supabaseClient";
 import { FiLogOut } from "react-icons/fi";
 import { FiSettings } from "react-icons/fi";
 import { useEffect, useState } from "react";
-import { Review } from "../../types/type";
+import { Review } from "../../../types/type";
 import { useNavigate } from "react-router-dom";
-import Sample from "../assets/default.png";
+import Sample from "../../assets/default.png";
 import EditProfile from "./EditProfile";
 
 function MyPage() {

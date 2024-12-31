@@ -1,12 +1,12 @@
-import Main from "../main/Main";
-import Signup from "../login-signup/Signup";
-import MyPage from "../mypage/MyPage";
+import Main from "../pages/main/Main";
+import MyPage from "../pages/mypage/MyPage";
 import PrivateRoute from "./PrivateRoute";
 import { createBrowserRouter } from "react-router-dom";
-import AddReview from "../book/AddReview";
 import App from "../App";
-import Login from "../login-signup/Login";
-import BookReview from "../book/review/[id]/BookReview";
+import Login from "../pages/login-signup/Login";
+import Signup from "../pages/login-signup/Signup";
+import BookReview from "../pages/book/review/[id]/BookReview";
+import AddReview from "../pages/book/AddReview";
 
 const router = createBrowserRouter([
 

@@ -1,4 +1,4 @@
-import { BooksType } from "../../../types/booksTypes";
+import { BooksType } from "../../../../types/booksTypes";
 import { HiX } from "react-icons/hi";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";

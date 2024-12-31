@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import supabase from "../../../supabase/supabaseClient";
-import Sample from "../../../assets/default.png";
-import { Review } from "../../../../types/type";
+import Sample from "../../../../assets/default.png";
+import { Review } from "../../../../../types/type";
+import supabase from "../../../../supabase/supabaseClient";
 
 function BookReview() {
   const { id } = useParams();

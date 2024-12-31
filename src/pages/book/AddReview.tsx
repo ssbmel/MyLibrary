@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import supabase from "../supabase/supabaseClient";
-import { useUserStore } from "../store/userStore";
 import { v4 as uuidv4 } from "uuid";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Review } from "../../types/type"
 import { FaCamera } from "react-icons/fa";
+import { useUserStore } from "../../store/userStore";
+import supabase from "../../supabase/supabaseClient";
+import { Review } from "../../../types/type";
 
 function AddReview() {
   const titleRef = useRef<HTMLInputElement>(null);
@@ -84,7 +84,7 @@ function AddReview() {
   
 
   return (
-    <form onSubmit={registerReview} className="w-full xl:w-[600px] xl:mx-auto pt-[46px] px-6 flex flex-col gap-5">
+    <form onSubmit={registerReview} className="w-full xl:w-[700px] xl:mx-auto pt-[46px] px-6 flex flex-col gap-5">
       <input
         defaultValue={book && book.title}
         ref={titleRef}

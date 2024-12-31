@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import supabase from "../supabase/supabaseClient";
-import BackButton from "../components/BackButton";
-import Button from "../components/Button";
-import { useUserStore } from "../store/userStore";
+import { useUserStore } from "../../store/userStore";
+import supabase from "../../supabase/supabaseClient";
+import BackButton from "../../components/BackButton";
+import Button from "../../components/Button";
 
 export default function Signup() {
   const [email, setEmail] = useState<string>("");

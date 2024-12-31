@@ -1,9 +1,10 @@
 import { useRef } from "react";
-import { useUserStore } from "../store/userStore";
 import { useNavigate } from "react-router-dom";
-import supabase from "../supabase/supabaseClient";
-import BackButton from "../components/BackButton";
-import Button from "../components/Button";
+import MainBg from "../../assets/clean-empty-library-hall.jpg"
+import { useUserStore } from "../../store/userStore";
+import supabase from "../../supabase/supabaseClient";
+import BackButton from "../../components/BackButton";
+import Button from "../../components/Button";
 
 function Login() {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -93,7 +94,9 @@ function Login() {
           </div>
         </div>
 
-        <div className="hidden xl:block xl:w-[55%] bg-library-hall bg-cover bg-center"></div>
+        <div className="hidden xl:block xl:w-[55%]">
+          <img src={MainBg} alt="배경이미지" className="w-full h-full" />
+        </div>
       </div>
     </>
   );

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Sample from "../assets/default.png";
-import supabase from "../supabase/supabaseClient";
-import { useUserStore } from "../store/userStore";
+import Sample from "../../assets/default.png";
+import supabase from "../../supabase/supabaseClient";
+import { useUserStore } from "../../store/userStore";
 
 
 interface EditProfileProps {
@@ -29,7 +29,7 @@ const EditProfile: React.FC<EditProfileProps> = ({
   };
 
   const uploadImage = async (file: File) => {
-    const { data, error } = await supabase.storage
+    const { error } = await supabase.storage
       .from("profile_images")
       .upload(`profiles/${user?.id}/${file.name}`, file);
   
@@ -38,7 +38,6 @@ const EditProfile: React.FC<EditProfileProps> = ({
       return null;
     }
   
-    // 업로드된 이미지 URL 반환
     const { data: publicURL } = supabase.storage
       .from("profile_images")
       .getPublicUrl(`profiles/${user?.id}/${file.name}`);

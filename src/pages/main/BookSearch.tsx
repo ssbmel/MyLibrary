@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { BooksType } from "../../types/booksTypes";
+import { BooksType } from "../../../types/booksTypes";
 import BookDetail from "./components/BookDetail";
 
 function BookSearch() {
@@ -49,8 +49,8 @@ function BookSearch() {
   };
 
   return (
-    <div className="w-full min-h-svh pt-[40px] bg-gray-100">
-      <div className="xl:w-[600px] mx-auto flex justify-center items-center gap-2 mt-6">
+    <div className="w-full min-h-svh pt-[40px]">
+      <div className="xl:w-[700px] mx-auto flex justify-center items-center gap-2 mt-6">
         <input
           ref={findBookRef}
           type="text"

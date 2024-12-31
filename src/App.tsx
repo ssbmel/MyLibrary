@@ -4,7 +4,7 @@ import { useUserStore } from "./store/userStore";
 import { useUserInitialize } from "./utils/initAuth";
 import Loading from "./components/Loading";
 import AddButton from "./components/AddButton";
-import Header from "./header/Header";
+import Header from "./components/header/Header";
 import Layout from "./Layout";
 function App() {
   const isInitialized = useUserStore((state) => state.isInitialized);

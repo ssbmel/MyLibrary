@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useUserStore } from "../store/userStore";
+import { useUserStore } from "../../store/userStore";
 import { FiChevronLeft } from "react-icons/fi";
 import { FiUser } from "react-icons/fi";
 
@@ -29,7 +29,7 @@ function Header() {
 
 
   return (
-    <div className="mx-auto min-w-[360px] w-full max-w-[500px] xl:max-w-none h-[46px] bg-[#3A0000] flex items-center justify-between fixed top-0">
+    <div className="mx-auto min-w-[360px] w-full max-w-[500px] xl:max-w-none h-[46px] bg-[#3A0000] flex items-center justify-between fixed top-0 z-10">
       {pathname === "/" ? (
         <div className="w-12"></div>
       ) : (
