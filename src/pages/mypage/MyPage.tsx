@@ -44,6 +44,7 @@ function MyPage() {
     await supabase.auth.signOut();
     clearUser();
     navigate("/");
+    localStorage.removeItem("userLocation");
     setIsLoggedIn(false);
   };
 
