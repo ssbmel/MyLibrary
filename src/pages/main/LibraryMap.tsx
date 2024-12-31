@@ -10,17 +10,22 @@ function LibraryMap() {
   const defaultLng = 126.978;
 
   useEffect(() => {
-    const storedLocation = localStorage.getItem("userLocation");
-    if (storedLocation) {
-      const { lat, lng } = JSON.parse(storedLocation);
-      loadMap(lat, lng);
+    // kakao.maps가 정상적으로 로드되었는지 확인
+    if (typeof kakao !== "undefined" && kakao.maps) {
+      const storedLocation = localStorage.getItem("userLocation");
+      if (storedLocation) {
+        const { lat, lng } = JSON.parse(storedLocation);
+        loadMap(lat, lng);
+      } else {
+        loadMap(defaultLat, defaultLng);
+      }
     } else {
-      loadMap(defaultLat, defaultLng);
+      console.error("Kakao 지도 API가 로드되지 않았습니다.");
     }
-  }, []);
+  }, [kakao]);
 
   const searchMyLocationHandler = () => {
-    const isAgreed = window.confirm("현재 사용자의 위치 정보를 수집하는 데에 동의하시겠습니까?");
+    const isAgreed = window.confirm("현재 위치 정보를 사용하시겠습니까?");
     
     if (isAgreed) {
       setIsLoading(true);
@@ -31,6 +36,7 @@ function LibraryMap() {
 
           const location = { lat, lng };
           localStorage.setItem("userLocation", JSON.stringify(location));
+
           loadMap(lat, lng);
         },
         (error) => {
@@ -44,19 +50,23 @@ function LibraryMap() {
   };
 
   const loadMap = (lat: number, lng: number) => {
-    const container = document.getElementById("map");
-    const options = {
-      center: new kakao.maps.LatLng(lat, lng),
-      level: 3,
-    };
-    const map = new kakao.maps.Map(container, options);
+    if (typeof kakao !== "undefined" && kakao.maps) {
+      const container = document.getElementById("map");
+      const options = {
+        center: new kakao.maps.LatLng(lat, lng),
+        level: 3,
+      };
+      const map = new kakao.maps.Map(container, options);
 
-    const marker = new kakao.maps.Marker({
-      position: new kakao.maps.LatLng(lat, lng),
-    });
-    marker.setMap(map);
+      const marker = new kakao.maps.Marker({
+        position: new kakao.maps.LatLng(lat, lng),
+      });
+      marker.setMap(map);
 
-    setIsLoading(false);
+      setIsLoading(false);
+    } else {
+      console.error("Kakao 지도 API가 로드되지 않았습니다.");
+    }
   };
 
   return (
@@ -65,7 +75,7 @@ function LibraryMap() {
       <div className="mx-auto flex flex-col justify-between xl:flex-row">
         <div className="xl:w-[50%] mx-auto">
           <div className="flex gap-3 items-center truncate mt-[30px]">
-            <h2 className="xl:text-xl">도서관 조회</h2>
+            <h2 className="xl:text-xl">지역 검색</h2>
             <input
               type="text"
               ref={searchRegionRef}
@@ -81,14 +91,14 @@ function LibraryMap() {
           </div>
         </div>
 
-        <div className="flex xl:w-[60%] h-full flex-col">
-          <button onClick={searchMyLocationHandler} className="flex gap-2 ml-auto my-2 items-center">
-            <p className="xl:text-[18px]">현재 내 위치</p>
-            <MdLocationSearching className="xl:w-[24px] xl:h-[24px] w-[18px] h-[18px]" />
+        <div className="flex flex-col w-[60%] h-full">
+          <button onClick={searchMyLocationHandler} className="flex gap-2 ml-auto mb-2">
+            <p className="text-[18px]">현재 내 위치</p>
+            <MdLocationSearching className="w-[24px] h-[24px]" />
           </button>
           <div
             id="map"
-            className="xl:w-full xl:h-[700px] w-full h-[500px] xl:mt-0"
+            className="xl:w-full xl:h-[700px] w-full min-h-[500px] mt-[20px] xl:mt-0"
           >
             {isLoading && <p className="truncate">지도를 불러오는 중...</p>}
           </div>
