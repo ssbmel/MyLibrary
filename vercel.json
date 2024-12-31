@@ -14,7 +14,7 @@
         },
         {
           "key": "Permissions-Policy",
-          "value": "camera=(), microphone=(), geolocation=(self), fullscreen=(self)"
+          "value": "camera=(), microphone=(), geolocation=(self), geolocation=https://my-library-git-main-ssbs-projects-d79b2593.vercel.app, fullscreen=(self)"
         }
       ]
     }
