@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { MdLocationSearching } from "react-icons/md";
-import { GoArrowUpRight } from "react-icons/go";
-import { Link } from "react-router-dom";
+// import { GoArrowUpRight } from "react-icons/go";
+// import { Link } from "react-router-dom";
 
 function LibraryMap() {
   const { kakao } = window;
@@ -137,7 +137,7 @@ function LibraryMap() {
   
   
 
-  const addMarker = (position: any, idx: number) => {
+  const addMarker = (position: any, _idx: number) => {
     const marker = new kakao.maps.Marker({
       position,
     });
