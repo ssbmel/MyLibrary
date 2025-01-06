@@ -154,10 +154,9 @@ function LibraryMap() {
   const getListItem = (index: number, place: any) => {
     const el = document.createElement("li");
     el.innerHTML = `<span class="markerbg marker_${index + 1}"></span>
-                    <div class="info">
+                    <div class="info flex gap-2 my-4">
                       <h5>${place.place_name}</h5>
-                      <span>${place.address_name}</span>
-                      <span class="tel">${place.phone}</span>
+                      <a href=${place.place_url} target="_blank">🏠︎</a>
                     </div>`;
     el.className = "item";
     return el;
@@ -194,7 +193,7 @@ function LibraryMap() {
               검색
             </button>
           </div>
-          <div className="w-full">
+          <div className="xl:w-full xl:h-[680px] w-full h-[calc(100vh-200px)]">
             <ul id="placesList" className="list-inside mt-4 overflow-y-auto w-full h-full"></ul>
           </div>
         </div>
